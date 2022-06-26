@@ -1,3 +1,5 @@
+:root {
+}
 
 html {
   box-sizing: border-box;
@@ -19,7 +21,7 @@ body {
   --input: hsl(0, 0%, 52%);
   --background: hsl(0, 0%, 98%);
   --dark-mode-text-and-light-mode-elements: hsl(0, 0%, 100%);
-  --image-white: url("../src/assets/Vector.png");
+  --image-white: url("Vector.png");
   margin: 0;
   overflow-x: hidden;
   background-color: var(--background);
@@ -30,11 +32,8 @@ body.classDark {
   --light-mode-text: hsl(0, 0%, 100%);
   --background: hsl(207, 26%, 17%);
   --dark-mode-elements: none;
-    --input:hsl(207,
-      26%,
-      17%);
   --dark-mode-text-and-light-mode-elements: hsl(209, 23%, 22%);
-  --image-white: url("../src/assets/arrowLeftWhite1.png");
+  --image-white: url("arrowLeftWhite1.png");
   background-color: var(--background);
   box-shadow: none;
 }
@@ -43,29 +42,26 @@ img {
   max-width: 100%;
 }
 
-.main {
+#main {
   max-width: 1440px;
-  margin:2rem auto;
-  height: auto;
+  margin: auto;
   position: relative;
 }
-
 /* Header*/
 
 header {
-  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   height: 80px;
-  margin: 0   auto;
-  box-shadow: 0px 0px 5px var(--input);
+  box-shadow: 0px 0px 5px var(--dark-mode-elements);
   background-color: var(--dark-mode-text-and-light-mode-elements);
 }
 
 .header_title {
-  font-size: 24px;
   font-weight: 700;
   color: var(--light-mode-text);
 }
-
 .container_button {
   display: flex;
   justify-content: center;
@@ -78,43 +74,29 @@ header {
   border: none;
   background-color: transparent;
 }
-
-.containerheader{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1440px;
-    margin: 0 auto;
-    height: 100%;
-}
-
-.container_button {
-    color: var(--light-mode-text);
-    font-size: 1.2rem;
-  font-weight: 400;
+.container_button p {
+  color: var(--light-mode-text);
+  width: 100%;
 }
 .container_button__title {
   margin-left: 0.5rem;
   font-weight: 400;
   color: var(--light-mode-text);
 }
-
 .dark_mode {
   width: 1.5rem;
   margin-right: 0.5rem;
 }
 
-
-
 /* Input */
 .searchCountry {
-  width: 40%;
+  width: 60%;
   display: flex;
   height: 50px;
   margin: 2rem 0;
   justify-content: left;
   align-content: center;
-  box-shadow: 0px 1px 5px var(--input);
+  box-shadow: 0px 1px 5px var(--dark-mode-elements);
   border-radius: 5px;
   background-color: var(--dark-mode-text-and-light-mode-elements);
 }
@@ -126,40 +108,27 @@ header {
   margin-left: 1rem;
   background-color: var(--dark-mode-text-and-light-mode-elements);
 }
-
 .select-flag {
   display: inline-block;
   position: absolute;
-  width: 15%;
+  width: 30%;
   top: 0;
   right: 0;
 }
-
 .searchCountry input {
   border: none;
   padding: 0.5rem;
-  width: 80%;
+  width: 30%;
   outline: none;
   color: var(--light-mode-text);
   background-color: var(--dark-mode-text-and-light-mode-elements);
 }
 
 /* Filter */
-.filterRegionArrow {
-  background: var(--image-white);
-  transform: rotate(-90deg);
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 25px;
-  height: 25px;
-  transition: transform 0.3s ease;
-}
 
 .mainFilter {
   display: flex;
   justify-content: space-around;
-  align-items: center;
   box-shadow: 0px 1px 5px var(--dark-mode-elements);
   border-radius: 5px;
   background-color: var(--dark-mode-text-and-light-mode-elements);
@@ -184,7 +153,6 @@ header {
   cursor: pointer;
   color: var(--light-mode-text);
 }
-
 .options p {
   display: block;
   padding: 0.5rem 1.2rem;
@@ -207,7 +175,6 @@ header {
 .none {
   display: none;
 }
-
 #containerFlags {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -224,21 +191,17 @@ header {
   border-radius: 10px;
   margin: 1rem auto;
 }
-
 .flag_short__description {
   margin: 1rem 0 1rem 1.5rem;
   color: var(--light-mode-text);
 }
-
 .flag_short__description p {
   color: var(--light-mode-text);
 }
-
 .title_flag {
   margin: 0;
   color: var(--light-mode-text);
 }
-
 .filter {
   display: none;
 }
@@ -258,7 +221,6 @@ header {
   box-shadow: 0px 1px 5px var(--dark-mode-elements);
   cursor: pointer;
 }
-
 .back {
   background: var(--image-white);
   background-position: center;
@@ -267,23 +229,19 @@ header {
   width: 25px;
   height: 25px;
 }
-
 .backHome p {
   color: var(--light-mode-text);
   padding: 0.2rem;
 }
-
 .backHome img {
   transform: rotate(-90deg);
   width: 20%;
   margin-right: 1rem;
 }
-
 .container-flag {
   display: flex;
   justify-content: space-between;
 }
-
 .imgContainer {
   width: 40%;
   margin-right: 3rem;
@@ -294,7 +252,6 @@ header {
   height: 100%;
   object-fit: contain;
 }
-
 .containerallData {
   display: flex;
   justify-content: space-between;
@@ -306,7 +263,6 @@ header {
   width: 40%;
   color: var(--light-mode-text);
 }
-
 .border {
   display: flex;
   align-items: center;
@@ -321,38 +277,32 @@ header {
   box-shadow: 0px 1px 5px var(--dark-mode-elements);
   margin: 0 0.5rem 0 0.5rem;
 }
-
 .loader {
   margin: 1rem auto;
   display: block;
   width: 4rem;
   height: 4rem;
 }
-
 /* Cards */
 @media screen and (max-width: 428px) {
   #containerFlags {
     width: 70%;
     margin: 0 auto;
   }
-
   .searchCountry {
     width: 90%;
     margin-left: auto;
     margin-right: auto;
   }
-
   .searchCountry input {
     width: 85%;
   }
-
   .select-flag {
     display: block;
     position: relative;
     width: 50%;
     margin-left: 1.2rem;
   }
-
   .flag {
     background-color: var(--dark-mode-text-and-light-mode-elements);
     display: grid;
@@ -361,12 +311,10 @@ header {
     border-radius: 10px;
     margin: 1rem auto;
   }
-
   .flag_image {
     width: 100%;
     height: auto;
   }
-
   .filter {
     display: none;
   }
@@ -380,11 +328,9 @@ header {
   .imgContainer {
     width: 100%;
   }
-
   .specs {
     width: 100%;
   }
-
   .containerallData {
     flex-direction: column;
   }
@@ -400,12 +346,10 @@ header {
   .border {
     flex-direction: column;
   }
-
   .border p {
     font-size: 16px;
     display: block;
   }
-
   /* .flag_short__description {
     margin: 1rem 0 1rem 1.5rem;
   } */
@@ -417,7 +361,6 @@ header {
   .bordeCountry {
     align-self: flex-start;
   }
-
   .backHome {
     width: 30%;
     display: flex;
@@ -446,7 +389,6 @@ header {
   .border p {
     align-self: flex-start;
   }
-
   /* .country-spec,
   .frontier,
   .border {
@@ -461,7 +403,6 @@ header {
     box-shadow: 0px 1px 5px var(--dark-mode-elements);
     margin: 0.5rem;
   }
-
   .loader {
     margin: 1rem auto;
     display: block;
@@ -469,7 +410,6 @@ header {
     height: 4rem;
   }
 }
-
 /* DarkMode*/
 
 /*
