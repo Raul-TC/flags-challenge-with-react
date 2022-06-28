@@ -225,6 +225,24 @@ header {
   margin: 1rem auto;
 }
 
+
+.flag_image {
+  width: 100%;
+  height: 209px;
+}
+
+ .flag_image a {
+   width: 100%;
+   height: 100%;
+   display: block;
+ }
+
+ .flag a img {
+   aspect-ratio: 3.2 / 2;
+   object-fit: cover;
+   height: 100%;
+   width: 100%;
+ }
 .flag_short__description {
   margin: 1rem 0 1rem 1.5rem;
   color: var(--light-mode-text);
@@ -362,10 +380,18 @@ header {
     margin: 1rem auto;
   }
 
-  .flag_image {
+  /* .flag_image {
     width: 100%;
     height: auto;
-  }
+  } */
+
+ 
+.flag a img {
+  aspect-ratio: 3.2 / 2;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
 
   .filter {
     display: none;

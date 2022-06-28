@@ -7,19 +7,19 @@ export const Select = () => {
     color: "red",
     fontWeight: "bold",
   };
-  const showOptions = () => {
+  const handleShowOptions = () => {
     if (!disabledOptions) setDisabledOptions(true);
     else {
       setDisabledOptions(false);
     }
   };
-  const chooseContinent = (continet) => {
+  const handleChooseContinent = (continet) => {
     setContinent(continet);
     setDisabledOptions(false);
   };
   return (
     <>
-      <div className="select-flag" onClick={showOptions}>
+      <div className="select-flag" onClick={handleShowOptions}>
         <div className="mainFilter">
           <p>Filter by Region</p>
           <span className="filterRegionArrow"></span>
@@ -27,11 +27,11 @@ export const Select = () => {
         {disabledOptions && (
           <>
             <div className="options">
-              <p onClick={() => chooseContinent("Africa")}>Africa</p>
-              <p onClick={() => chooseContinent("Americas")}>Americas</p>
-              <p onClick={() => chooseContinent("Asia")}>Asia</p>
-              <p onClick={() => chooseContinent("Europe")}>Europe</p>
-              <p onClick={() => chooseContinent("Oceania")}>Oceania</p>
+              <p onClick={() => handleChooseContinent("Africa")}>Africa</p>
+              <p onClick={() => handleChooseContinent("Americas")}>Americas</p>
+              <p onClick={() => handleChooseContinent("Asia")}>Asia</p>
+              <p onClick={() => handleChooseContinent("Europe")}>Europe</p>
+              <p onClick={() => handleChooseContinent("Oceania")}>Oceania</p>
             </div>
           </>
         )}
@@ -39,7 +39,7 @@ export const Select = () => {
       {continent !== "" && (
         <p onClick={() => setContinent("")}>
           {" "}
-          <span style={clear}>X</span>clear filter
+          <span style={clear}>X </span>clear filter
         </p>
       )}
     </>

@@ -5,7 +5,7 @@ import { Select } from "./Select";
 export const NavSearch = () => {
   const [searchFlag, setSearchFlag] = useState("");
 
-  const flagSearch = (e) => {
+  const handleFlagSearch = (e) => {
     setSearchFlag(e);
   };
 
@@ -14,7 +14,7 @@ export const NavSearch = () => {
       <div className="searchCountry">
         <img src={iconSearch} alt="icon-search" />
         <input
-          onChange={(e) => flagSearch(e.target.value)}
+          onChange={(e) => handleFlagSearch(e.target.value)}
           type="search"
           name="searchCountry"
           placeholder="Search for a country..."
