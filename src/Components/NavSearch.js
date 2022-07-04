@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import iconSearch from "../assets/search.svg";
 import { Select } from "./Select";
 
-export const NavSearch = () => {
-  const [searchFlag, setSearchFlag] = useState("");
-
-  const handleFlagSearch = (e) => {
-    setSearchFlag(e);
-  };
-
+export const NavSearch = ({
+  setSearchFlag,
+  handleFlagSearch,
+  handleShowOptions,
+  handleChooseContinent,
+  continent,
+  setContinent,
+  disabledOptions,
+  setDisabledOptions,
+}) => {
   return (
     <>
       <div className="searchCountry">
@@ -21,7 +24,15 @@ export const NavSearch = () => {
           autoComplete="off"
         />
       </div>
-      <Select />
+      <Select
+        setSearchFlag={setSearchFlag}
+        handleShowOptions={handleShowOptions}
+        handleChooseContinent={handleChooseContinent}
+        continent={continent}
+        setContinent={setContinent}
+        disabledOptions={disabledOptions}
+        setDisabledOptions={setDisabledOptions}
+      />
     </>
   );
 };

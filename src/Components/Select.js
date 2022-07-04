@@ -1,27 +1,29 @@
-import React, { useState } from "react";
-export const Select = () => {
-  const [disabledOptions, setDisabledOptions] = useState(false);
-  const [continent, setContinent] = useState("");
-
+import React from "react";
+export const Select = ({
+  setSearchFlag,
+  disabledOptions,
+  setDisabledOptions,
+  continent,
+  setContinent,
+  handleShowOptions,
+  handleChooseContinent,
+}) => {
   let clear = {
     color: "red",
     fontWeight: "bold",
+    cursor: "pointer",
   };
-  const handleShowOptions = () => {
-    if (!disabledOptions) setDisabledOptions(true);
-    else {
-      setDisabledOptions(false);
-    }
-  };
-  const handleChooseContinent = (continet) => {
-    setContinent(continet);
-    setDisabledOptions(false);
+
+  let clearText = {
+    fontWeight: "bold",
+    cursor: "pointer",
+    color: "--var(--input)",
   };
   return (
     <>
       <div className="select-flag" onClick={handleShowOptions}>
         <div className="mainFilter">
-          <p>Filter by Region</p>
+          <p>{continent === null ? "Filter by Region" : continent}</p>
           <span className="filterRegionArrow"></span>
         </div>
         {disabledOptions && (
@@ -36,10 +38,15 @@ export const Select = () => {
           </>
         )}
       </div>
-      {continent !== "" && (
-        <p onClick={() => setContinent("")}>
-          {" "}
-          <span style={clear}>X </span>clear filter
+      {continent !== null && (
+        <p
+          className="clearText"
+          onClick={() => {
+            setContinent(null);
+            setSearchFlag("");
+          }}
+        >
+          <span style={clear}>X </span>Clear filter
         </p>
       )}
     </>
