@@ -14,11 +14,6 @@ export const Select = ({
     cursor: "pointer",
   };
 
-  let clearText = {
-    fontWeight: "bold",
-    cursor: "pointer",
-    color: "--var(--input)",
-  };
   return (
     <>
       <div className="select-flag" onClick={handleShowOptions}>

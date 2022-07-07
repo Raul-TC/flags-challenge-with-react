@@ -11,6 +11,7 @@ export const Flags = () => {
   const [searchFlag, setSearchFlag] = useState("");
   const [disabledOptions, setDisabledOptions] = useState(false);
   const [continent, setContinent] = useState(null);
+  const [emptyFilter, setemptyFilter] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -22,6 +23,17 @@ export const Flags = () => {
         setDb(el);
       });
   }, []);
+
+  useEffect(() => {
+    const data = document.querySelectorAll(".flag");
+
+    if (data.length === 0) {
+      setemptyFilter(true);
+    } else {
+      setemptyFilter(false);
+    }
+  }, [searchFlag]);
+
   const handleFlagSearch = (e) => {
     setSearchFlag(e);
   };
@@ -49,6 +61,11 @@ export const Flags = () => {
         disabledOptions={disabledOptions}
         setDisabledOptions={setDisabledOptions}
       />
+      {searchFlag && emptyFilter && (
+        <>
+          <h2 className="errorSearch"> "{searchFlag}'' not found 😪</h2>
+        </>
+      )}
       {Loading && <Loader />}
       <div id="containerFlags">
         {db.length > 0 &&

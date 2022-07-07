@@ -3,13 +3,15 @@ import { Link, useParams } from "react-router-dom";
 import { Borders } from "../Components/Borders";
 import { Loader } from "../Components/Loader";
 import { helpHttp } from "../helpers/helphttp";
+import { Error404 } from "./Error404";
 
 export const Flag = () => {
-  let { flag } = useParams();
-
   const [flagInfo, setFlagInfo] = useState(null);
   const [Loading, setLoading] = useState(false);
   const [borders, setBorders] = useState([]);
+  const [err, seterr] = useState(false);
+
+  let { flag } = useParams();
 
   useEffect(() => {
     setLoading(true);
@@ -19,14 +21,33 @@ export const Flag = () => {
       .then((el) => {
         setLoading(false);
 
-        if (!el[0].borders) {
-          setBorders(["None"]);
-        } else {
-          setBorders(el[0].borders);
+        if (el.err) {
+          seterr(true);
+          setFlagInfo(null);
         }
-        setFlagInfo(el);
+        if (el.err === undefined) {
+          if (!el[0].borders) {
+            setFlagInfo(el);
+            setBorders(["None"]);
+            seterr(false);
+          } else {
+            setBorders(el[0].borders);
+            setFlagInfo(el);
+            seterr(false);
+          }
+        }
       });
   }, [flag]);
+
+  // useEffect(() => {
+  //   const getFlag = document.querySelectorAll(".imgContainer");
+
+  //   if (!getFlag) {
+  //     seterr(true);
+  //   } else {
+  //     seterr(false);
+  //   }
+  // }, [flag]);
 
   // let regionNames = new Intl.DisplayNames(["en"], { type: "region" });
 
@@ -59,7 +80,6 @@ export const Flag = () => {
   return (
     <>
       {Loading && <Loader />}
-
       {flagInfo !== null && (
         <>
           <Link className="backHome" to="/flags">
@@ -71,13 +91,11 @@ export const Flag = () => {
               <img src={flagInfo[0].flags.svg} alt={flagInfo[0].name.common} />
             </div>
 
-            {/* Specs */}
             <div className="specs">
               <h1 className="title" data-dark="darkMode">
                 {flagInfo[0].name.common}
               </h1>
 
-              {/* All Data */}
               <div className="containerallData">
                 <div className="country-spec">
                   <p>
@@ -119,15 +137,20 @@ export const Flag = () => {
                   <b>Border Countries: </b>
                 </p>
                 <div className="bordeCountry">
-                  {borders.map((border, index) => (
-                    <Borders key={index} border={border} />
-                  ))}
+                  {borders.map((border, index) =>
+                    !border ? (
+                      <Borders key={index} border="null" />
+                    ) : (
+                      <Borders key={index} border={border} />
+                    )
+                  )}
                 </div>
               </div>
             </div>
           </div>
         </>
       )}
+      {err && <Error404 />}
     </>
   );
 };

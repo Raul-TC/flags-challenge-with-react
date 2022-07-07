@@ -1,5 +1,4 @@
 import React from "react";
-import "../assets/Loader.css";
 
 export const Loader = () => {
   return (

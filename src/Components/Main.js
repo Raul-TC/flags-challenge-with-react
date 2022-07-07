@@ -9,10 +9,10 @@ export const Main = () => {
     <div className="main">
       <HashRouter>
         <Routes>
+          <Route path="*" element={<Error404 />} />
           <Route path="/" element={<Navigate to="/flags" />} />
           <Route path="/flags" element={<Flags />} />
           <Route path="flags/:flag" element={<Flag />} />
-          <Route path="*" element={<Error404 />} />
           <Route path="flags/none" element={<Navigate to={"/flags"} />} />
         </Routes>
       </HashRouter>

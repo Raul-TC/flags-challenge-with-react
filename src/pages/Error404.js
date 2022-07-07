@@ -1,10 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const Error404 = () => {
   return (
-    <>
-      <h3>Error 404</h3>
-      <p>Not Found</p>
-    </>
+    <div className="error">
+      <span className="error404"></span>
+      <Link to="../flags/">Go to Home</Link>
+    </div>
   );
 };
