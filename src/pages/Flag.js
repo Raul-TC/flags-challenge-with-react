@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Borders } from "../Components/Borders";
 import { Loader } from "../Components/Loader";
-import { helpHttp } from "../helpers/helphttp";
+import ThemeContext from "../context/ThemeContext";
 import { Error404 } from "./Error404";
 
 export const Flag = () => {
@@ -12,44 +12,32 @@ export const Flag = () => {
   const [err, seterr] = useState(false);
 
   let { flag } = useParams();
+  const { DarkTheme } = useContext(ThemeContext);
 
   useEffect(() => {
     setLoading(true);
     let url = `https://restcountries.com/v3.1/alpha/${flag}`;
-    helpHttp()
-      .get(url)
+
+    fetch(url)
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
       .then((el) => {
         setLoading(false);
-
-        if (el.err) {
-          seterr(true);
-          setFlagInfo(null);
+        if (!el[0].borders) {
+          setFlagInfo(el);
+          setBorders(["None"]);
+          seterr(false);
+        } else {
+          setBorders(el[0].borders);
+          setFlagInfo(el);
+          seterr(false);
         }
-        if (el.err === undefined) {
-          if (!el[0].borders) {
-            setFlagInfo(el);
-            setBorders(["None"]);
-            seterr(false);
-          } else {
-            setBorders(el[0].borders);
-            setFlagInfo(el);
-            seterr(false);
-          }
-        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        setFlagInfo(null);
+        seterr(true);
       });
   }, [flag]);
-
-  // useEffect(() => {
-  //   const getFlag = document.querySelectorAll(".imgContainer");
-
-  //   if (!getFlag) {
-  //     seterr(true);
-  //   } else {
-  //     seterr(false);
-  //   }
-  // }, [flag]);
-
-  // let regionNames = new Intl.DisplayNames(["en"], { type: "region" });
 
   const getNativeName = () => {
     let valores = Object.values(flagInfo[0].name.nativeName);
@@ -82,11 +70,18 @@ export const Flag = () => {
       {Loading && <Loader />}
       {flagInfo !== null && (
         <>
-          <Link className="backHome" to="/flags">
-            <div className="back"></div>
-            <p>Back</p>
-          </Link>
-          <div className="container-flag">
+          <div className="containerButton">
+            <Link
+              className={DarkTheme ? "backHome darkMode" : "backHome"}
+              to="/flags"
+            >
+              <span className={DarkTheme ? "back darkMode" : "back"}></span>
+              <p>Back</p>
+            </Link>
+          </div>
+          <div
+            className={DarkTheme ? "container-flag darkMode" : "container-flag"}
+          >
             <div className="imgContainer">
               <img src={flagInfo[0].flags.svg} alt={flagInfo[0].name.common} />
             </div>
@@ -120,7 +115,9 @@ export const Flag = () => {
                 <div className="frontier">
                   <p>
                     <b>Top Level Domain: </b>
-                    {flagInfo[0].tld[0]}
+                    {flagInfo[0].tld === undefined
+                      ? "undefined"
+                      : flagInfo[0].tld[0]}
                   </p>
                   <p>
                     <b>Currencies: </b>

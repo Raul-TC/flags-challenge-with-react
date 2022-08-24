@@ -1,105 +1,63 @@
-import React, { useEffect, useState } from "react";
-import { helpHttp } from "../helpers/helphttp";
-
+import React, { useContext } from "react";
+import FlagContext from "../context/FlagContext";
+import ThemeContext from "../context/ThemeContext";
+import ClearFilterButton from "./ClearFilterButton";
 import { FlagCard } from "./FlagCard";
 import { Loader } from "./Loader";
 import { NavSearch } from "./NavSearch";
 
 export const Flags = () => {
-  const [db, setDb] = useState("");
-  const [Loading, setLoading] = useState(false);
-  const [searchFlag, setSearchFlag] = useState("");
-  const [disabledOptions, setDisabledOptions] = useState(false);
-  const [continent, setContinent] = useState(null);
-  const [emptyFilter, setemptyFilter] = useState(false);
+  const { db, continent, searchFlag, emptyFilter, Loading } =
+    useContext(FlagContext);
 
-  useEffect(() => {
-    setLoading(true);
-    let url = "https://restcountries.com/v3.1/all";
-    helpHttp()
-      .get(url)
-      .then((el) => {
-        setLoading(false);
-        setDb(el);
-      });
-  }, []);
+  const { DarkTheme } = useContext(ThemeContext);
 
-  useEffect(() => {
-    const data = document.querySelectorAll(".flag");
+  const getDataFiltered = ({ region, name }) => {
+    if (continent === null && searchFlag === "") return true;
 
-    if (data.length === 0) {
-      setemptyFilter(true);
-    } else {
-      setemptyFilter(false);
+    if (searchFlag !== "" && continent !== null) {
+      return name.common.includes(searchFlag) && region.includes(continent);
     }
-  }, [searchFlag]);
+    if (continent !== null) {
+      return region.includes(continent);
+    }
 
-  const handleFlagSearch = (e) => {
-    setSearchFlag(e);
-  };
-
-  const handleShowOptions = () => {
-    if (!disabledOptions) setDisabledOptions(true);
-    else {
-      setDisabledOptions(false);
+    if (searchFlag !== "") {
+      return name.common.includes(searchFlag);
     }
   };
-  const handleChooseContinent = (continet) => {
-    setContinent(continet);
-    setDisabledOptions(false);
-  };
 
+  const filterData = db.filter(getDataFiltered);
   return (
     <>
-      <NavSearch
-        setSearchFlag={setSearchFlag}
-        handleFlagSearch={(e) => handleFlagSearch(e)}
-        handleShowOptions={handleShowOptions}
-        handleChooseContinent={handleChooseContinent}
-        continent={continent}
-        setContinent={setContinent}
-        disabledOptions={disabledOptions}
-        setDisabledOptions={setDisabledOptions}
-      />
+      <div className="containerFilters">
+        <NavSearch />
+      </div>
+      <ClearFilterButton />
       {searchFlag && emptyFilter && (
-        <>
-          <h2 className="errorSearch"> "{searchFlag}'' not found 😪</h2>
-        </>
+        <h2 className={DarkTheme ? "errorSearch darkMode" : "errorSearch"}>
+          "{searchFlag}" Not Found 😪
+        </h2>
       )}
       {Loading && <Loader />}
       <div id="containerFlags">
-        {db.length > 0 &&
-          (!continent
-            ? db
-                .filter((el) => el.name.common.includes(searchFlag))
-                .map((el) => (
-                  <FlagCard
-                    key={el.name.common}
-                    name={el.name}
-                    flags={el.flags}
-                    population={el.population}
-                    region={el.region}
-                    capital={el.capital}
-                    cca2={el.cca2}
-                  />
-                ))
-            : db
-                .filter(
-                  (el) =>
-                    el.name.common.includes(searchFlag) &&
-                    el.region.includes(continent)
-                )
-                .map((el) => (
-                  <FlagCard
-                    key={el.name.common}
-                    name={el.name}
-                    flags={el.flags}
-                    population={el.population}
-                    region={el.region}
-                    capital={el.capital}
-                    cca2={el.cca2}
-                  />
-                )))}
+        {db.length > 0 ? (
+          filterData.map((el) => (
+            <FlagCard
+              key={el.name.common}
+              name={el.name}
+              flags={el.flags}
+              population={el.population}
+              region={el.region}
+              capital={el.capital}
+              cca2={el.cca2}
+            />
+          ))
+        ) : (
+          <h3 className={DarkTheme ? "fetchingData darkMode" : "fetchingData"}>
+            Fetching Data...
+          </h3>
+        )}
       </div>
     </>
   );

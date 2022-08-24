@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import ThemeContext from "../context/ThemeContext";
 import { DarkMode } from "./DarkMode";
 
 export const Header = () => {
+  const { DarkTheme } = useContext(ThemeContext);
   return (
-    <header>
+    <header className={DarkTheme ? "darkMode" : ""}>
       <div className="containerheader">
-        <h1 className="header_title">Where in the world?</h1>
+        <h1 className={DarkTheme ? "header_title darkMode" : "header_title"}>
+          Where in the world?
+        </h1>
         <DarkMode />
       </div>
     </header>

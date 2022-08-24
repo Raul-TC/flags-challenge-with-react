@@ -6,7 +6,7 @@ import { Flags } from "./Flags";
 
 export const Main = () => {
   return (
-    <div className="main">
+    <main className="main">
       <HashRouter>
         <Routes>
           <Route path="*" element={<Error404 />} />
@@ -16,6 +16,6 @@ export const Main = () => {
           <Route path="flags/none" element={<Navigate to={"/flags"} />} />
         </Routes>
       </HashRouter>
-    </div>
+    </main>
   );
 };
