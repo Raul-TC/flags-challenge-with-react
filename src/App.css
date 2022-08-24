@@ -742,12 +742,13 @@ header.darkMode{
 }
 .header_title.darkMode,
 .container_button.dark_mode p,
-.container_button.darkMode{
+.container_button.darkMode,
+.searchCountry.darkMode input{
     color: var(--dark-mode-text-and-light-mode-elements);
     background-color: transparent;
 }
 
-.searchCountry.darkMode {
+.searchCountry.darkMode{
   background-color: var(--dark-mode-elements);
   color: var(--dark-mode-text-and-light-mode-elements);
   /* transition: all .3s ease; */
